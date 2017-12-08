@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NLTemplate.h"
 
-
+const std::string templates_dir = TEMPLATES_DIR;
 
 static void testFile() {
     const char *titles[ 3 ] = { "Chico", "Harpo", "Groucho" };
@@ -12,7 +12,7 @@ static void testFile() {
     
     NL::Template::Template t( loader );
     
-    t.load( "Templates/test.txt" );               // Load & parse the main template and its dependencies.
+    t.load( templates_dir + "/test.txt" );               // Load & parse the main template and its dependencies.
     t.set( "text", "Hello, world" );    // Set a top-level variable
     t.block( "items" ).repeat( 3 );     // We need to know in advance that the "items" block will repeat 3 times.
     
