@@ -3,3 +3,4 @@ NLTemplate.xcodeproj/project.xcworkspace/
 .DS_Store
 
 _build
+.vscode
