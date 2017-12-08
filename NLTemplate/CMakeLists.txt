@@ -9,7 +9,6 @@ add_custom_command(TARGET demo POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
 	${TEMPLATES_DIR} $<TARGET_FILE_DIR:demo>
 )
+target_compile_definitions(demo PRIVATE TEMPLATES_DIR="${TEMPLATES_DIR}")
 
 add_test(demoTest demo ${TEMPLATES_DIR}/test.txt ${TEMPLATES_DIR}/testheader.txt)
-
-add_definitions(-DTEMPLATES_DIR="${TEMPLATES_DIR}")
