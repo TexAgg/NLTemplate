@@ -336,7 +336,7 @@ Loader::Result LoaderFile::load( const std::string & name ) {
 	input.open( name );
 	
 	if ( ! input.is_open() ) {
-		return { false, nullptr, "Could not open file " + name };
+		return { false, "", "Could not open file " + name };
 	}
 	
 	std::string content( (std::istreambuf_iterator<char>( input ) ),
@@ -372,12 +372,22 @@ Template::Template( Loader & loader ) : Block( "main" ), loader( loader ) {
 */
 void Template::load_recursive( const std::string& name, std::vector<Tokenizer>& files, std::vector<Node*> & nodes ) {
 	std::stringstream ss_path, ss_temp;
+
+	if (s_tpl_path.empty())
+	{
+		ss_path << name.substr(0, name.find_last_of("\\/"));
+		s_tpl_path = ss_path.str();
+	}
 	
 	auto loaded = loader.load( name );
 	if ( !loaded.valid ) {
-		// TODO pass loaded.error somewhere..
-		//throw std::invalid_argument("loaded not valid");
-		return;
+		ss_temp << s_tpl_path << "/" << name;
+		loaded = loader.load(ss_temp.str());
+
+		if (!loaded.valid)
+		{
+			return;
+		}
 	}
 	files.emplace_back( loaded.data );
 	

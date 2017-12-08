@@ -160,6 +160,7 @@ private:
 	Loader & loader;
 
 	void load_recursive( const std::string & name, std::vector<Private::Tokenizer> & files, std::vector<Node*> & nodes );
+	std::string s_tpl_path;
 };
 
 
